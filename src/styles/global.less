@@ -1,0 +1,90 @@
+@displays: flex, grid, block, none, inline, inline-block;
+each(@displays, {
+  .@{value} {
+    display: @value;
+  }
+});
+
+@fontStyles: italic, normal;
+each(@fontStyles, {
+  .@{value} {
+    font-style: @value;
+  }
+});
+
+@textAligns: left, right, center, justify, initial, inherit;
+each(@textAligns, {
+  .text-@{value} {
+    text-align: @value;
+  }
+});
+
+@fontWeight: normal, bold, initial, 100, 200, 300, 400, 500, 600, 700, 800, 900;
+each(@fontWeight, {
+  .font-@{value} {
+    font-weight: @value;
+  }
+});
+
+@atomSpacing: 0.25rem;
+@iterations: 12;
+.gaps() {
+  m: margin;
+  p: padding;
+}
+.directions() {
+  l: left;
+  r: right;
+  t: top;
+  b: bottom;
+  // a: all;
+  // y: vertical;
+  // x: horizontal;
+}
+
+each(.gaps(), .(@gapValue, @gapKey, @gapIndex) {
+  each(.directions(), .(@directionValue, @directionKey, @directionIndex) {
+    each(range(@iterations), {
+      .@{gapKey}@{directionKey}-@{value} {
+        @{gapValue}-@{directionValue}: @atomSpacing * @value;
+      }
+    })
+  })
+})
+  each(range(@iterations), {
+  .m-@{value} {
+    margin: @atomSpacing * @value;
+  }
+  .mx-@{value} {
+    margin-left: @atomSpacing * @value;
+    margin-right: @atomSpacing * @value;
+  }
+  .my-@{value} {
+    margin-top: @atomSpacing * @value;
+    margin-bottom: @atomSpacing * @value;
+  }
+  .p-@{value} {
+    padding: @atomSpacing * @value;
+  }
+  .px-@{value} {
+    padding-left: @atomSpacing * @value;
+    padding-right: @atomSpacing * @value;
+  }
+  .py-@{value} {
+    padding-top: @atomSpacing * @value;
+    padding-bottom: @atomSpacing * @value;
+  }
+})
+  .justify() {
+  start: start;
+  end: end;
+  center: center;
+  around: space-around;
+  evenly: space-evenly;
+  between: space-between;
+}
+each(.justify(), .(@value, @key, @index) {
+  .justify-@{key} {
+    justify-content: @value;
+  }
+});
